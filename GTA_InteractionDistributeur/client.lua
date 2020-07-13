@@ -81,7 +81,7 @@ AddEventHandler("GTA:OnDistributeur", function()
 	AttachEntityToEntity(Boisson, playerPed, boneIndex, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 1, 0, 0, 2, 1)
 	Wait(3000)
 	DeleteEntity(Boisson)
-	TriggerEvent("player:receiveItem", 18, 1)
+	TriggerEvent("player:receiveItem", "Soda", 1)
 	exports.nCoreGTA:nNotificationMain({
 		text = "~b~+1 ~g~soda",
 		type = 'basGauche',
