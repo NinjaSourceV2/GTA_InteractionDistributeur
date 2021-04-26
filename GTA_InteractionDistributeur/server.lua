@@ -1,5 +1,5 @@
 --> Version de la Resource : 
-local LatestVersion = ''; CurrentVersion = '1.1'
+local LatestVersion = ''; CurrentVersion = '1.2'
 PerformHttpRequest('https://raw.githubusercontent.com/NinjaSourceV2/GTA_InteractionDistributeur/master/GTA_InteractionDistributeur/VERSION', function(Error, NewestVersion, Header)
     LatestVersion = NewestVersion
     if CurrentVersion ~= NewestVersion then
@@ -13,8 +13,8 @@ local source = source
 local license = GetPlayerIdentifiers(source)[1]
 prix = 25
 
-TriggerEvent('GTA:GetInfoJoueurs', source, function(data)
-        local argentPropre = data.argent_propre
+TriggerEvent('GTA:GetUserQtyItem', source, "Argent-Propre", function(argentPropreQty)
+        local argentPropre = argentPropreQty
         if (tonumber(argentPropre) >= prix) then
 			TriggerEvent('GTA:RetirerArgentPropre', source, tonumber(prix))
 			TriggerClientEvent('GTA:OnDistributeur', source)
