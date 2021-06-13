@@ -9,12 +9,6 @@ local playerPed = nil
 local coord = nil
 local Boisson = nil
 
-local function Ninja_Core__DisplayHelpAlert(msg)
-	BeginTextCommandDisplayHelp("STRING");  
-    AddTextComponentSubstringPlayerName(msg);  
-    EndTextCommandDisplayHelp(0, 0, 1, -1);
-end
-
 local square = math.sqrt
 function getDistance(a, b) 
     local x, y, z = a.x-b.x, a.y-b.y, a.z-b.z
@@ -81,12 +75,10 @@ AddEventHandler("GTA:OnDistributeur", function()
 	AttachEntityToEntity(Boisson, playerPed, boneIndex, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1, 1, 0, 0, 2, 1)
 	Wait(3000)
 	DeleteEntity(Boisson)
-	TriggerEvent("player:receiveItem", "Soda", 1)
-	exports.nCoreGTA:nNotificationMain({
-		text = "~b~+1 ~g~soda",
-		type = 'basGauche',
-		nTimeNotif = 3000,
-	})
+
+
+	TriggerEvent("GTA_Inventaire:AjouterItem", "soda", 1)
+	TriggerEvent("NUI-Notification", {"~b~+1 ~g~soda"})
 	antiSpam = false
 end)
 
@@ -96,9 +88,9 @@ Citizen.CreateThread(function()
 		if IsNearDistributeur then
 			isMessageHelpReady = true
 			if GetLastInputMethod(0) then
-				Ninja_Core__DisplayHelpAlert("~INPUT_TALK~ pour ~b~intéragir")
+                TriggerEvent("GTA-Notification:InfoInteraction", "~INPUT_PICKUP~ pour ~b~intéragir")
 			else
-				Ninja_Core__DisplayHelpAlert("~INPUT_CELLPHONE_RIGHT~ pour ~b~intéragir")
+                TriggerEvent("GTA-Notification:InfoInteraction", "~INPUT_CELLPHONE_RIGHT~ pour ~b~intéragir")
 			end
 			
 			if antiSpam == false then
