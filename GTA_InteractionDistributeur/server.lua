@@ -1,5 +1,5 @@
 --> Version de la Resource : 
-local LatestVersion = ''; CurrentVersion = '1.2'
+local LatestVersion = ''; CurrentVersion = '1.3'
 PerformHttpRequest('https://raw.githubusercontent.com/NinjaSourceV2/GTA_InteractionDistributeur/master/GTA_InteractionDistributeur/VERSION', function(Error, NewestVersion, Header)
     LatestVersion = NewestVersion
     if CurrentVersion ~= NewestVersion then
@@ -11,12 +11,12 @@ RegisterServerEvent("GTA:PayerDistributeurBoisson")
 AddEventHandler("GTA:PayerDistributeurBoisson", function()
 local source = source
 local license = GetPlayerIdentifiers(source)[1]
-prix = 25
+local prix = 25
 
-TriggerEvent('GTA:GetUserQtyItem', source, "Argent-Propre", function(argentPropreQty)
-        local argentPropre = argentPropreQty
+TriggerEvent('GTA_Inventaire:GetItemQty', source, "cash", function(qtyItem, itemid)
+        local argentPropre = qtyItem
         if (tonumber(argentPropre) >= prix) then
-			TriggerEvent('GTA:RetirerArgentPropre', source, tonumber(prix))
+            TriggerClientEvent('GTA_Inventaire:RetirerItem', source, "cash", tonumber(prix))
 			TriggerClientEvent('GTA:OnDistributeur', source)
         else
             TriggerClientEvent('nMenuNotif:showNotification', source, "~r~Tu n'as pas suffisamment d'argent !")
